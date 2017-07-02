@@ -1,2 +1,47 @@
-<h1>Hello World!</h1>
+<?DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Congratulations</title>
+<style>
+h1,h2,h3,p,a {font-family: sans-serif;}
+body {margin: 20px;}
+code {font-family: monospace; color: blue; font-size: 1.3em;}
+a {text-decoration: none; color: gray;}
+a:hover {text-decoration: underline;}
+</style>
+</head>
+<body>
+<h1>Congratulations</h1>
+<p>Your Vagrant Box is up and running!<p>
+
+<h2><a id="Running_the_virtual_machine_19"></a>Running the virtual machine</h2>
+<p>The virtual machine is running after the installation process. If you are not using the web-server you can shut it down with the command <code>vagrant halt</code> in order to free resources.</p>
+<p>The next time you need it, run the command <code>vagrant up</code>. This time it will not reinstall the software but start-up right away.</p>
+<p>If you ever need to get rid of the virtual machine, or need to reinstall from scratch use the command <code>vagrant destroy</code>.</p>
+<h3><a id="Document_root_of_the_webserver_26"></a>Document root of the web-server</h3>
+<ul>
+<li>The web-server expects any files (HTML, JS, CSS, images, etc.) in folders under the <code>www/html</code> directory. (<code>www/html</code> is the so-called “Document Root”)</li>
+<li>CGI scripts are kept in <code>www/cgi-bin</code>. You’ll find an example <code>hello.py</code>. Test it with <a href="http://localhost:8080/cgi-bin/hello.py">http://localhost:8080/cgi-bin/hello.py</a></li>
+<li>Log files are written to the <code>log/httpd</code> directory. Here <code>log/httpd/access_log</code> tracks successful events, while <code>log/httpd/error_log</code> tracks when problems occur. This is particularly helpful when debugging CGIs.</li>
+<li>The directory on the host system (i.e. your computer) is mounted to <code>/vagrant</code> on the virtual machine. E.g. if you have CGI scripts that need to read or write files into the <code>data</code> directory use the path <code>/vagrant/data</code> on the virtual machine.</li>
+</ul>
+<h3><a id="SSH_login_32"></a>SSH login</h3>
+<p>You can login to the virtual machine via SSH on port 2222. E.g. with <code>ssh vagrant@localhost -p 2222</code> from a UNIX command line. Or with any other SSH client:</p>
+<ul>
+<li>host: <code>localhost</code></li>
+<li>user: <code>vagrant</code></li>
+<li>password: <code>vagrant</code></li>
+<li>port: <code>2222</code> (it’s usually 22)</li>
+</ul>
+<h2><a id="Python_CGI_References_40"></a>Python CGI References</h2>
+<ul>
+<li><a href="https://www.tutorialspoint.com/python/python_cgi_programming.htm">https://www.tutorialspoint.com/python/python_cgi_programming.htm</a></li>
+<li><a href="https://docs.python.org/2/library/cgi.html">https://docs.python.org/2/library/cgi.html</a></li>
+</ul>
+
+</body>
+</html>
+
+
 
