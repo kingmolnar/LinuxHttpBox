@@ -70,8 +70,10 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-  	yum -y update
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    if [ ! -f /home/vagrant/.LinuxWebServer_install_completed ]; then	
+  	date > /home/vagrant/.LinuxWebServer_install_completed
+	yum -y update
 	yum -y install epel-release
 	yum -y groupinstall "Development Tools"
 	yum -y install python-devel
@@ -90,12 +92,18 @@ Vagrant.configure("2") do |config|
 	pip install matplotlib
 	yum -y install httpd
 	mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/bkup_httpd_conf
-	sed "s/\/var\//\/vagrant\//g" /etc/httpd/conf/bkup_httpd_conf  > /etc/httpd/conf/httpd.conf
-	mkdir /vagrant/log
+	sed 's|/var/|/vagrant/|g' /etc/httpd/conf/bkup_httpd_conf  > /etc/httpd/conf/httpd.conf
+	if [ ! -d /vagrant/log ]; then
+		 mkdir /vagrant/log
+	fi
 	cp -a /var/log/httpd /vagrant/log/
 	rm -rf /var/log/httpd
 	ln -s /vagrant/log/httpd /var/log/
-	systemctl enable httpd
-	systemctl start httpd
+    else
+	echo -n "Running installation from "
+	cat /home/vagrant/.LinuxWebServer_install_completed
+    fi
+    systemctl enable httpd
+    systemctl start httpd
   SHELL
 end
