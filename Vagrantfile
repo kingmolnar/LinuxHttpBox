@@ -72,7 +72,6 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     if [ ! -f /home/vagrant/.LinuxWebServer_install_completed ]; then	
-  	date > /home/vagrant/.LinuxWebServer_install_completed
 	yum -y update
 	yum -y install epel-release
 	yum -y groupinstall "Development Tools"
@@ -99,6 +98,7 @@ Vagrant.configure("2") do |config|
 	cp -a /var/log/httpd /vagrant/log/
 	rm -rf /var/log/httpd
 	ln -s /vagrant/log/httpd /var/log/
+  	date > /home/vagrant/.LinuxWebServer_install_completed
     else
 	echo -n "Running installation from "
 	cat /home/vagrant/.LinuxWebServer_install_completed
