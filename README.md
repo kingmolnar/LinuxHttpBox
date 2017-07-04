@@ -10,7 +10,8 @@ The installation is based on Vagrant by HashiCorp https://www.vagrantup.com/
 - You should have a fast internet connection when performing these steps.
 
 ## Setup
-1. Download and install the Vagrant software from https://www.vagrantup.com/downloads.html for your operating system. Documentation https://www.vagrantup.com/intro/index.html
+1. Download and install the *VirtualBox* software from https://www.virtualbox.org/wiki/Downloads (Alternatively *Vagrant* also works with *VMWare* https://www.vagrantup.com/vmware/index.html)
+1. Download and install the *Vagrant* software from https://www.vagrantup.com/downloads.html for your operating system. Documentation https://www.vagrantup.com/intro/index.html
 2. Download or clone this repository anywhere on your computer.
 3. Open a terminal or command line window on your computer and navigate into the directory, that you just created by downloading this repository.
 4. Run the command `vagrant up` in your terminal (or command line window). This might take a while: the system will create a new virtual machine and install the operating system with all the required packages.
