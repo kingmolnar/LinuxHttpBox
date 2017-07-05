@@ -71,37 +71,53 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    if [ ! -f /home/vagrant/.LinuxWebServer_install_completed ]; then	
-	yum -y update
-	yum -y install epel-release
-	yum -y groupinstall "Development Tools"
-	yum -y install python-devel
-	yum -y install python2-pip
-	pip install --upgrade pip
-	yum -y install numpy
-	pip install pandas
-	pip install sklearn
-	pip install scipy
-	pip install sqlalchemy
-	pip install openpyxl
-	pip install xlrd
-	pip install xlutils
-	pip install pyexcel
-	pip install seaborn
-	pip install matplotlib
-	yum -y install httpd
-	mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/bkup_httpd_conf
-	sed 's|/var/|/vagrant/|g' /etc/httpd/conf/bkup_httpd_conf  > /etc/httpd/conf/httpd.conf
-	if [ ! -d /vagrant/log ]; then
-		 mkdir /vagrant/log
-	fi
-	cp -a /var/log/httpd /vagrant/log/
-	rm -rf /var/log/httpd
-	ln -s /vagrant/log/httpd /var/log/
-  	date > /home/vagrant/.LinuxWebServer_install_completed
+    if [ ! -f /home/vagrant/.LinuxWebServer_install_completed ]; then
+    	yum -y update
+    	yum -y install epel-release
+    	yum -y groupinstall "Development Tools"
+      echo "installing Python 2"
+    	yum -y install python-devel
+    	yum -y install python2-pip
+    	pip install --upgrade pip
+    	yum -y install numpy
+    	pip install pandas
+    	pip install sklearn
+    	pip install scipy
+    	pip install sqlalchemy
+    	pip install openpyxl
+    	pip install xlrd
+    	pip install xlutils
+    	pip install pyexcel
+    	pip install seaborn
+    	pip install matplotlib
+      echo "installing Python 3"
+      yum -y install python34
+      yum -y install  python34-pip
+      pip3 install --upgrade pip
+      pip3 install pandas
+    	pip3 install sklearn
+    	pip3 install scipy
+    	pip3 install sqlalchemy
+    	pip3 install openpyxl
+    	pip3 install xlrd
+    	pip3 install xlutils
+    	pip3 install pyexcel
+    	pip3 install seaborn
+    	pip3 install matplotlib
+      echo "installing HTTP server"
+    	yum -y install httpd
+    	mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/bkup_httpd_conf
+    	sed 's|/var/|/vagrant/|g' /etc/httpd/conf/bkup_httpd_conf  > /etc/httpd/conf/httpd.conf
+    	if [ ! -d /vagrant/log ]; then
+    		 mkdir /vagrant/log
+    	fi
+    	cp -a /var/log/httpd /vagrant/log/
+    	rm -rf /var/log/httpd
+    	ln -s /vagrant/log/httpd /var/log/
+      date > /home/vagrant/.LinuxWebServer_install_completed
     else
-	echo -n "Running installation from "
-	cat /home/vagrant/.LinuxWebServer_install_completed
+	      echo -n "Running installation from "
+	      cat /home/vagrant/.LinuxWebServer_install_completed
     fi
     systemctl enable httpd
     systemctl start httpd
