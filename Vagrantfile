@@ -104,6 +104,8 @@ Vagrant.configure("2") do |config|
     	pip3 install pyexcel
     	pip3 install seaborn
     	pip3 install matplotlib
+	pip3 install python34-tkinter
+	pip3 install tkinter
       echo "installing HTTP server"
     	yum -y install httpd
     	mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/bkup_httpd_conf
